@@ -1,0 +1,11 @@
+/Users/arnar/Projects/ExactCoverSudoku/bin/Debug/netcoreapp3.0/ExactCoverSudoku
+/Users/arnar/Projects/ExactCoverSudoku/bin/Debug/netcoreapp3.0/ExactCoverSudoku.deps.json
+/Users/arnar/Projects/ExactCoverSudoku/bin/Debug/netcoreapp3.0/ExactCoverSudoku.runtimeconfig.json
+/Users/arnar/Projects/ExactCoverSudoku/bin/Debug/netcoreapp3.0/ExactCoverSudoku.runtimeconfig.dev.json
+/Users/arnar/Projects/ExactCoverSudoku/bin/Debug/netcoreapp3.0/ExactCoverSudoku.dll
+/Users/arnar/Projects/ExactCoverSudoku/bin/Debug/netcoreapp3.0/ExactCoverSudoku.pdb
+/Users/arnar/Projects/ExactCoverSudoku/obj/Debug/netcoreapp3.0/ExactCoverSudoku.csprojAssemblyReference.cache
+/Users/arnar/Projects/ExactCoverSudoku/obj/Debug/netcoreapp3.0/ExactCoverSudoku.AssemblyInfoInputs.cache
+/Users/arnar/Projects/ExactCoverSudoku/obj/Debug/netcoreapp3.0/ExactCoverSudoku.AssemblyInfo.cs
+/Users/arnar/Projects/ExactCoverSudoku/obj/Debug/netcoreapp3.0/ExactCoverSudoku.dll
+/Users/arnar/Projects/ExactCoverSudoku/obj/Debug/netcoreapp3.0/ExactCoverSudoku.pdb
