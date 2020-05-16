@@ -3,6 +3,26 @@
     Github: arnaringig
 */
 
+
+// THIS IS THE SMALL EXAMPLE GRID USED IN DONALD KNUTH´S PAPER
+// TO DEMONSTRATE ALGORITHM X
+// Each node is a linked list objct with 4 connections, up, down, left and right
+
+//   h -  A  -  B  -  C  -  D  -  E  -  F  -  G         <= Column Objects
+//        |     |     |     |     |     |     |
+//        |  -  |  -  C1 -  |  -  E1 -  F1 -  |
+//        |     |     |     |     |     |     |
+//        A2 -  |  -  |  -  D2 -  |  -  |  -  G2
+//        |     |     |     |     |     |     | 
+//        |  -  B3 -  C3 -  |  -  |  -  F3 -  |
+//        |     |     |     |     |     |     |
+//        A4 -  |  -  |  -  D4 -  |  -  |  -  |
+//        |     |     |     |     |     |     |
+//        |  -  B5 -  |  -  |  -  |  -  |  -  G5
+//        |     |     |     |     |     |     |          
+//        |  -  |  -  |  -  D6 -  E6 -  |  -  G6
+
+
 using System;
 namespace ExactCoverSudoku 
 {
