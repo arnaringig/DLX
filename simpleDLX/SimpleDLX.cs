@@ -66,35 +66,38 @@ namespace ExactCoverSudoku
             A.Left     = root; 
 
             // row 1
-            Node C1 = new Node("C1","Data");  
-            Node E1 = new Node("E1","Data");
-            Node F1 = new Node("F1","data");
+            Node C1 = new Node("C1","Data","",C);  
+            Node E1 = new Node("E1","Data","",E);
+            Node F1 = new Node("F1","data","",F);
             connectThree(C1,E1,F1);
 
             
             // row 2
-            Node A2 = new Node("A2","data"); 
-            Node D2 = new Node("D2","data");
-            Node G2 = new Node("G2","data");
+            Node A2 = new Node("A2","data","",A); 
+            Node D2 = new Node("D2","data","",D);
+            Node G2 = new Node("G2","data","",G);
             connectThree(A2,D2,G2);
             // row 3
-            Node B3 = new Node("B3","data");
-            Node C3 = new Node("C3","data");
-            Node F3 = new Node("F3","data");
+            Node B3 = new Node("B3","data","",B);
+            Node C3 = new Node("C3","data","",C);
+            Node F3 = new Node("F3","data","",F);
             connectThree(B3,C3,F3);
             // row 4
-            Node A4 = new Node("A4","data");
-            Node D4 = new Node("D4","data");
+            Node A4 = new Node("A4","data","",A);
+            Node D4 = new Node("D4","data","",D);
             connectTwo(A4,D4);
             // row 5
-            Node B5 = new Node("B5","data");
-            Node G5 = new Node("G5","data");
+            Node B5 = new Node("B5","data","",B);
+            Node G5 = new Node("G5","data","",G);
             connectTwo(B5,G5);
             // row 6
-            Node D6 = new Node("D6","data");
-            Node E6 = new Node("E6","data");
-            Node G6 = new Node("G6","data");
+            Node D6 = new Node("D6","data","",D);
+            Node E6 = new Node("E6","data","",E);
+            Node G6 = new Node("G6","data","",G);
             connectThree(D6,E6,G6);
+
+
+
 
             connectUpDown(C,C1);
             connectUpDown(E,E1);
