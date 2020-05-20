@@ -1,42 +1,131 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 namespace ExactCoverSudoku
 {
     class Program
     {
+        // ATH VILJUM PRUFA AÐ OVERLOADA == OPERATORINN FYRIR NODES
+        // SVO VIÐ ÞURFUM KANNSKI EKKI ISSAME FALLIÐ!!!
         static void Main(string[] args)
         {
             
             //int[] sudokuGrid = SudokuReader.readGrid("sudokuprufaempty.txt");
             //Node dlxRoot = new DLXSudokuReducer(sudokuGrid).Root; 
             //Console.WriteLine(Object.ReferenceEquals(dlxRoot,dlxRoot.Left.Right));
-            SimpleDLX dlx = new SimpleDLX(); 
-            Node c = dlx.Root.Right;
-            cover(c);
-            Console.WriteLine(dlx.Root.Right.Right.Right.Down.ID);
-            uncover(c);
-            Console.WriteLine(dlx.Root.Right.Right.Right.Down.ID);
             
+            SimpleDLX dlx = new SimpleDLX(); 
+            List<Node> solutions = new List<Node>();
+            Node c = dlx.Root.Right;
+            
+            
+            
+            algorithmX(dlx.Root,solutions);
 
-//   h -  A  -  B  -  C  -  D  -  E  -  F  -  G         <= Column Objects
-//        |     |     |     |     |     |     |
-//        |  -  |  -  C1 -  |  -  E1 -  F1 -  |
-//        |     |     |     |     |     |     |
-//        A2 -  |  -  |  -  D2 -  |  -  |  -  G2
-//        |     |     |     |     |     |     | 
-//        |  -  B3 -  C3 -  |  -  |  -  F3 -  |
-//        |     |     |     |     |     |     |
-//        A4 -  |  -  |  -  D4 -  |  -  |  -  |
-//        |     |     |     |     |     |     |
-//        |  -  B5 -  |  -  |  -  |  -  |  -  G5
-//        |     |     |     |     |     |     |          
-//        |  -  |  -  |  -  D6 -  E6 -  |  -  G6
+            //Console.WriteLine(dlx.Root.Right.Right.Right.Right.ID);
+
+            
+  
+            //   h -  A  -  B  -  C  -  D  -  E  -  F  -  G         <= Column Objects
+            //        |     |     |     |     |     |     |
+            //        |  -  |  -  C1 -  |  -  E1 -  F1 -  |
+            //        |     |     |     |     |     |     |
+            //        A2 -  |  -  |  -  D2 -  |  -  |  -  G2
+            //        |     |     |     |     |     |     | 
+            //        |  -  B3 -  C3 -  |  -  |  -  F3 -  |
+            //        |     |     |     |     |     |     |
+            //        A4 -  |  -  |  -  D4 -  |  -  |  -  |
+            //        |     |     |     |     |     |     |
+            //        |  -  B5 -  |  -  |  -  |  -  |  -  G5
+            //        |     |     |     |     |     |     |          
+            //        |  -  |  -  |  -  D6 -  E6 -  |  -  G6
 
         }
 
-        public void algorithmX()
+
+
+        public static void algorithmX(Node root, List<Node> solutions)
         {
+            if(root == root.Right)
+            {
+                foreach(Node row in solutions )
+                {
+                    Node temp = row;
+                    Console.Write(temp.ID + " ");
+                    while(temp.Right != row)
+                    {
+                        Console.Write(temp.Right.ID + " ");
+                        
+                        temp = temp.Right;
+                    }
+                    
+                    Console.WriteLine();
+                    
+                }
+                
+                return;
+            } 
+
+            Node columnObject = chooseNextColumnInLine(root);
+            Node firstInRow  = columnObject.Down;
+            Node rowObject = firstInRow.Right;
+
+            cover(columnObject);
+
+            while(firstInRow != columnObject)
+            {
+                solutions.Add(firstInRow);
+               
+                while(rowObject != firstInRow)
+                {
+                    //Console.WriteLine(rowObject.ID);
+                    cover(rowObject.Col);
+                    rowObject = rowObject.Right;
+                }
+                
+                algorithmX(root,solutions);
+                
+                solutions.RemoveAt(solutions.Count - 1);
+
+                rowObject = firstInRow.Left;
+                while(rowObject != firstInRow)
+                {
+                    //Console.WriteLine(rowObject.ID);
+                    uncover(rowObject.Col);
+                    rowObject = rowObject.Left;
+                }
+
             
+                firstInRow = firstInRow.Down;
+                rowObject  = firstInRow.Right;               
+
+            }
+            uncover(columnObject);
+
+
+            
+           
+        }
+
+        private static Node chooseSmallestSizeColumn(Node root)
+        { 
+            Node columnObject = root.Right;
+            Node smallestColumn = columnObject;
+            while(columnObject.Right != root)
+            {
+                if(columnObject.Size > columnObject.Right.Size )
+                {
+                    smallestColumn = columnObject.Right;
+                }
+                columnObject = columnObject.Right;
+            }
+
+            return smallestColumn;
+        }
+
+        private static Node chooseNextColumnInLine(Node root)
+        {
+            return root.Right;
         }
 
         private static void cover(Node columnObject)
@@ -44,52 +133,47 @@ namespace ExactCoverSudoku
             columnObject.Left.Right = columnObject.Right;
             columnObject.Right.Left = columnObject.Left;
 
-            Node c = columnObject.Down;
-            Node r = c.Right;
+            Node firstInRow = columnObject.Down;
+            Node rowObject  = firstInRow.Right;
 
-            
-
-            while(!isSame(c, columnObject))
+            while(firstInRow != columnObject)
             {
-                while(!isSame(r,c))
+                
+                while(rowObject != firstInRow)
                 {
-                    r.Up.Down = r.Down;
-                    r.Down.Up = r.Up;
+                    rowObject.Up.Down = rowObject.Down;
+                    rowObject.Down.Up = rowObject.Up;
                     
-                    r = r.Right;
+                    rowObject = rowObject.Right;
                 }
                            
-                c = c.Down;
-                r = c.Right;  
+                firstInRow = firstInRow.Down;
+                rowObject  = firstInRow.Right;  
             }
         }
 
         private static void uncover(Node columnObject)
         {
-            Node c = columnObject.Up;
-            Node r = c.Left;
+            // Breyta nafninu á c og r eins og uppi í eitthvað viðeigandi.
+            Node firstInRow = columnObject.Up;
+            Node rowObject = firstInRow.Left;
 
-            while(!isSame(c,columnObject))
+            while(firstInRow != columnObject)
             {
-                while(!isSame(r,c))
+                while(rowObject != firstInRow)
                 {
-                    r.Up.Down = r;
-                    r.Down.Up = r;
+                    rowObject.Up.Down = rowObject;
+                    rowObject.Down.Up = rowObject;
 
-                    r = r.Left;
+                    rowObject = rowObject.Left;
                 }
 
-                c = c.Up;
-                r = c.Left;
+                firstInRow = firstInRow.Up;
+                rowObject = firstInRow.Left;
             }
 
             columnObject.Left.Right = columnObject;
             columnObject.Right.Left = columnObject;
-        }
-
-        private static bool isSame(Node node1, Node node2)
-        {
-            return Object.ReferenceEquals(node1,node2);
         }
     }
 }

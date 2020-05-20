@@ -59,7 +59,7 @@ namespace ExactCoverSudoku
         public Node   Left        { get { return left       ;} set { left  = value;} }
         public Node   Right       { get { return right      ;} set { right = value;} }
         public Node   Col         { get { return col        ;}                       }
-        public int    Size        { get { return size       ;}                       }
+        public int    Size        { get { return size       ;} set { size  = value;} }
         public string ID          { get { return id         ;}                       }
         public string Tag         { get { return tag        ;}                       }
         public string Constraint  { get { return constraint ;}                       }

@@ -47,6 +47,14 @@ namespace ExactCoverSudoku
             Node F = new Node("F","Column");
             Node G = new Node("G","Column");
 
+            A.Size = 2;
+            B.Size = 2;
+            C.Size = 2;
+            D.Size = 3;
+            E.Size = 2;
+            F.Size = 2;
+            G.Size = 3;
+
             root.Right = A;
             A.Right    = B;
             B.Right    = C;
