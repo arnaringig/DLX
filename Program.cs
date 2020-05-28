@@ -8,7 +8,7 @@ namespace ExactCoverSudoku
         static void Main(string[] args)
         {
             
-            int[] sudokuGrid = SudokuReader.readGrid("sudokuprufa4by4.txt");
+            int[] sudokuGrid = SudokuReader.readGrid("sudokuprufa2.txt");
             Node dlxRoot = new DLXSudokuReducer(sudokuGrid).Root; 
             //Console.WriteLine(dlxRoot.Left.Right.ID); 
             //Node prufa = dlxRoot;
@@ -64,11 +64,12 @@ namespace ExactCoverSudoku
                     }*/
                     Console.WriteLine();
                 }
-                Environment.Exit(1);
+                //Environment.Exit(1);
                 return;
             } 
 
             Node columnObject = chooseNextColumnInLine(root);
+            //Node columnObject = chooseSmallestSizeColumn(root);
             Node firstInRow  = columnObject.Down;
             Node rowObject = firstInRow.Right;
             cover(columnObject);
