@@ -5,7 +5,7 @@
 using System;
 namespace ExactCoverSudoku
 {
-    public class DLXSudokuReducer                                                       /* The DLX data structure is described in the Readme file. */
+    class DLXSudokuReducer                                                       /* The DLX data structure is described in the Readme file. */
     {
         private int[]             grid;
         private Node              root;

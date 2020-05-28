@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using ExactCoverSudoku;
 
-namespace ExactCoverSudoku
-{
     // https://www.ocf.berkeley.edu/~jchu/publicportal/sudoku/0011047.pdf
     // Dancing Links Donald E. Knuth, Stanford University
     class Program
@@ -18,4 +17,4 @@ namespace ExactCoverSudoku
             Console.WriteLine("búið");
         }
     }
-}
+

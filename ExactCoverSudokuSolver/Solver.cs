@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ExactCoverSudoku
 {
-    public class Solver
+    internal class Solver
     {   
         public static void solve(int[] sudokuGrid)
         { 
