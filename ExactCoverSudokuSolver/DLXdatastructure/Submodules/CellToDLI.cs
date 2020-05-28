@@ -8,7 +8,6 @@ namespace ExactCoverSudoku
 {
     public class CellToDLI
     { 
-
         // value, row, column
         private int[] rowData = new int[3];
 
@@ -44,19 +43,12 @@ namespace ExactCoverSudoku
             this.rowData[2] = col;
 
             // The length of the grid array (since we want to be able to use an arbitrarily sized problem, i.e 16 by 16).
-
             int len = length;                                                      
      
             this.celDLIdx = insertIdx(celRegion,0,len,cellIdx);                             
             this.rowDLIdx = insertIdx(rowRegion,row,len,val);                              
-            this.colDLIdx = insertIdx(colRegion,col,len,val); 
-            /*Console.WriteLine("#############################");
-            Console.WriteLine("boxRegion:" + boxRegion.ToString());
-            Console.WriteLine("box:" + box.ToString()); 
-            Console.WriteLine("len:" + len.ToString()); 
-            Console.WriteLine("val:" + val.ToString()); */                           
-            this.boxDLIdx = insertIdx(boxRegion,box,len,val);  
-            //Console.WriteLine("boxDLIdx:" + this.boxDLIdx.ToString());                              
+            this.colDLIdx = insertIdx(colRegion,col,len,val);                          
+            this.boxDLIdx = insertIdx(boxRegion,box,len,val);                               
         }
 
         // Takes a cell index and k from the input problem and returns the sudoku grid row. k is the squre root of the problem length.
@@ -75,6 +67,5 @@ namespace ExactCoverSudoku
         public int   RowDLIdx  { get { return rowDLIdx; } }                                     
         public int   ColDLIdx  { get { return colDLIdx; } }                                     
         public int   BoxDLIdx  { get { return boxDLIdx; } }                                     
-
     }
 }

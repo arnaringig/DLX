@@ -21,8 +21,6 @@ namespace ExactCoverSudoku
         public int Val  { get { return val; } }
         public int Row  { get { return row; } }
         public int Col  { get { return col; } }
-
     }
-
 }
     

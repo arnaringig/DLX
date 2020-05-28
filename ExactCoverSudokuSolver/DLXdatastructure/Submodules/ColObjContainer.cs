@@ -34,11 +34,10 @@ namespace ExactCoverSudoku
             int first = 0;
             int last  = this.container.Length-1;
 
-            this.container[first].Left  = root; //Breyta þessu bara í ColObj. Þarf að vera sama týpan.
+            this.container[first].Left  = root; 
             this.container[last ].Right = root;
             root.Left = this.container[last];
             root.Right = this.container[first];
-
 
             // Er þetta rétt? þetta var this.container.Length - 1. 
             for (int i = 1; i < this.container.Length; i++)
@@ -50,8 +49,7 @@ namespace ExactCoverSudoku
         }
 
         public Node this[int index]
-        {
-            
+        {    
             get { 
                 return container[index]; 
             }

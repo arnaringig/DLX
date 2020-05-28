@@ -37,8 +37,6 @@ namespace ExactCoverSudoku
             this.colNode    = colNode;
             this.constraint = constraint;
             this.rowData    = new RowMetadata(rowData);
- 
-            
         }
 
         public void increaseSize()
