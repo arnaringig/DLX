@@ -40,8 +40,8 @@ namespace ExactCoverSudoku
             root.Right = this.container[first];
 
 
-
-            for (int i = 1; i < this.container.Length-1; i++)
+            // Er þetta rétt? þetta var this.container.Length - 1. 
+            for (int i = 1; i < this.container.Length; i++)
             {
                 this.container[i-1].Right = this.container[ i ];
                 this.container[ i ].Left  = this.container[i-1];   
@@ -51,7 +51,10 @@ namespace ExactCoverSudoku
 
         public Node this[int index]
         {
-            get { return container[index]; }
+            
+            get { 
+                return container[index]; 
+            }
         }
     }
 }

@@ -73,35 +73,37 @@ namespace ExactCoverSudoku
             B.Left     = A;
             A.Left     = root; 
 
+
+            int[] filler = new int[3] {1,1,1};
             // row 1
-            Node C1 = new Node("C1","Data","",C);  
-            Node E1 = new Node("E1","Data","",E);
-            Node F1 = new Node("F1","data","",F);
+            Node C1 = new Node("C1","Data","",C,filler);  
+            Node E1 = new Node("E1","Data","",E,filler);
+            Node F1 = new Node("F1","data","",F,filler);
             connectThree(C1,E1,F1);
 
             
             // row 2
-            Node A2 = new Node("A2","data","",A); 
-            Node D2 = new Node("D2","data","",D);
-            Node G2 = new Node("G2","data","",G);
+            Node A2 = new Node("A2","data","",A,filler); 
+            Node D2 = new Node("D2","data","",D,filler);
+            Node G2 = new Node("G2","data","",G,filler);
             connectThree(A2,D2,G2);
             // row 3
-            Node B3 = new Node("B3","data","",B);
-            Node C3 = new Node("C3","data","",C);
-            Node F3 = new Node("F3","data","",F);
+            Node B3 = new Node("B3","data","",B,filler);
+            Node C3 = new Node("C3","data","",C,filler);
+            Node F3 = new Node("F3","data","",F,filler);
             connectThree(B3,C3,F3);
             // row 4
-            Node A4 = new Node("A4","data","",A);
-            Node D4 = new Node("D4","data","",D);
+            Node A4 = new Node("A4","data","",A,filler);
+            Node D4 = new Node("D4","data","",D,filler);
             connectTwo(A4,D4);
             // row 5
-            Node B5 = new Node("B5","data","",B);
-            Node G5 = new Node("G5","data","",G);
+            Node B5 = new Node("B5","data","",B,filler);
+            Node G5 = new Node("G5","data","",G,filler);
             connectTwo(B5,G5);
             // row 6
-            Node D6 = new Node("D6","data","",D);
-            Node E6 = new Node("E6","data","",E);
-            Node G6 = new Node("G6","data","",G);
+            Node D6 = new Node("D6","data","",D,filler);
+            Node E6 = new Node("E6","data","",E,filler);
+            Node G6 = new Node("G6","data","",G,filler);
             connectThree(D6,E6,G6);
 
 

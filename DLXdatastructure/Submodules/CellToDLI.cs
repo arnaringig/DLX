@@ -7,7 +7,11 @@ using System;
 namespace ExactCoverSudoku 
 {
     public class CellToDLI
-    {   
+    { 
+
+        // value, row, column
+        private int[] rowData = new int[3];
+
         private int celDLIdx;                                                               
         private int rowDLIdx;                                                               
         private int colDLIdx;                                                               
@@ -30,37 +34,47 @@ namespace ExactCoverSudoku
             int k = (int)Math.Sqrt(length);
             // and q is the fourth root of length
             int q = (int)Math.Sqrt(k);
-
-            //int val = suGrid[cellIdx]-1;                                                  
+                                                 
             int row = getRow(cellIdx,k);                                                    
             int col = getCol(cellIdx,k);                                                    
             int box = getBox(row,col,q);                                                    
-        
+
+            this.rowData[0] = val;
+            this.rowData[1] = row;
+            this.rowData[2] = col;
+
             // The length of the grid array (since we want to be able to use an arbitrarily sized problem, i.e 16 by 16).
 
             int len = length;                                                      
      
             this.celDLIdx = insertIdx(celRegion,0,len,cellIdx);                             
             this.rowDLIdx = insertIdx(rowRegion,row,len,val);                              
-            this.colDLIdx = insertIdx(colRegion,col,len,val);                               
-            this.boxDLIdx = insertIdx(boxRegion,box,len,val);                               
+            this.colDLIdx = insertIdx(colRegion,col,len,val); 
+            /*Console.WriteLine("#############################");
+            Console.WriteLine("boxRegion:" + boxRegion.ToString());
+            Console.WriteLine("box:" + box.ToString()); 
+            Console.WriteLine("len:" + len.ToString()); 
+            Console.WriteLine("val:" + val.ToString()); */                           
+            this.boxDLIdx = insertIdx(boxRegion,box,len,val);  
+            //Console.WriteLine("boxDLIdx:" + this.boxDLIdx.ToString());                              
         }
 
         // Takes a cell index and k from the input problem and returns the sudoku grid row. k is the squre root of the problem length.
         Func<double, int, int> getRow = (cIdx,k)    => (int)Math.Floor(cIdx/k);  
         // Takes a cell index and k from the input problem and returns the sudoku grid column. k is the squre root of the problem length.
         Func<double, int, int> getCol = (cIdx,k)    => (int)cIdx%k;              
-        // Takes a row index and column index and q and returns which box the pair belongs to. q is the 
+        // Takes a row index and column index and q and returns which box the pair belongs to. q is the fourth root of the problem length
         Func<int,int,int,int>  getBox = (row,col,q) => q*(row/q) + (col/q);           
         // Returns column placement index for DLX. | 1-81 cell | 82-162 row | 163-243 col | 244-324 box | (for 9 by 9).
         // The formula is: region*length + ((Sqrt(length)*(row|col|box) + cellValue)  |  (Sqrt(length)*0 + cellIdx)).
         Func<int,int,int,int,int> insertIdx = (r,p,l,v) => r*l + (int)Math.Sqrt(l)*p + v; 
                                                                                           
         // Accessor methods
-        public int CelDLIdx  { get { return celDLIdx; } }                                     
-        public int RowDLIdx  { get { return rowDLIdx; } }                                     
-        public int ColDLIdx  { get { return colDLIdx; } }                                     
-        public int BoxDLIdx  { get { return boxDLIdx; } }                                     
+        public int[] RowData   { get { return rowData ; } }                                     
+        public int   CelDLIdx  { get { return celDLIdx; } }                                     
+        public int   RowDLIdx  { get { return rowDLIdx; } }                                     
+        public int   ColDLIdx  { get { return colDLIdx; } }                                     
+        public int   BoxDLIdx  { get { return boxDLIdx; } }                                     
 
     }
 }

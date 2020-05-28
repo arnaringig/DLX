@@ -5,27 +5,29 @@ namespace ExactCoverSudoku
 {
     class Program
     {
-        // ATH VILJUM PRUFA AÐ OVERLOADA == OPERATORINN FYRIR NODES
-        // SVO VIÐ ÞURFUM KANNSKI EKKI ISSAME FALLIÐ!!!
         static void Main(string[] args)
         {
             
-            //int[] sudokuGrid = SudokuReader.readGrid("sudokuprufaempty.txt");
-            //Node dlxRoot = new DLXSudokuReducer(sudokuGrid).Root; 
-            //Console.WriteLine(Object.ReferenceEquals(dlxRoot,dlxRoot.Left.Right));
-            
-            SimpleDLX dlx = new SimpleDLX(); 
+            int[] sudokuGrid = SudokuReader.readGrid("sudokuprufa4by4.txt");
+            Node dlxRoot = new DLXSudokuReducer(sudokuGrid).Root; 
+            //Console.WriteLine(dlxRoot.Left.Right.ID); 
+            //Node prufa = dlxRoot;
+            //SimpleDLX dlx = new SimpleDLX(); 
             List<Node> solutions = new List<Node>();
-            Node c = dlx.Root.Right;
+            //Node c = dlx.Root.Right;
             
-            
-            
-            algorithmX(dlx.Root,solutions);
+            /*for(int i = 0;i<10;i++)
+            {
+                prufa = prufa.Right;
+                Console.WriteLine(prufa.ID);
+            }*/
+            //Console.WriteLine(prufa.Down.RowData.Val);
+            //Console.WriteLine(prufa.Down.Down.Tag);
+            algorithmX(dlxRoot,solutions);
+            Console.WriteLine("búið");
+            //Console.WriteLine(dlxRoot.Left.Left.ID);
 
-            //Console.WriteLine(dlx.Root.Right.Right.Right.Right.ID);
-
             
-  
             //   h -  A  -  B  -  C  -  D  -  E  -  F  -  G         <= Column Objects
             //        |     |     |     |     |     |     |
             //        |  -  |  -  C1 -  |  -  E1 -  F1 -  |
@@ -42,34 +44,33 @@ namespace ExactCoverSudoku
 
         }
 
-
-
         public static void algorithmX(Node root, List<Node> solutions)
         {
+            //Console.WriteLine(root.Right.ID);
+            //Environment.Exit(1);
             if(root == root.Right)
             {
+                Console.WriteLine("kLÁRAR");
                 foreach(Node row in solutions )
                 {
                     Node temp = row;
-                    Console.Write(temp.ID + " ");
-                    while(temp.Right != row)
+                    Console.Write(temp.RowData.Val+1 + " ");
+                    //Console.Write(temp.ID + " ");
+                    /*while(temp.Right != row)
                     {
                         Console.Write(temp.Right.ID + " ");
                         
                         temp = temp.Right;
-                    }
-                    
+                    }*/
                     Console.WriteLine();
-                    
                 }
-                
+                Environment.Exit(1);
                 return;
             } 
 
             Node columnObject = chooseNextColumnInLine(root);
             Node firstInRow  = columnObject.Down;
             Node rowObject = firstInRow.Right;
-
             cover(columnObject);
 
             while(firstInRow != columnObject)
@@ -78,10 +79,11 @@ namespace ExactCoverSudoku
                
                 while(rowObject != firstInRow)
                 {
-                    //Console.WriteLine(rowObject.ID);
-                    cover(rowObject.Col);
+                
+                    cover(rowObject.ColNode);
                     rowObject = rowObject.Right;
                 }
+                
                 
                 algorithmX(root,solutions);
                 
@@ -90,21 +92,16 @@ namespace ExactCoverSudoku
                 rowObject = firstInRow.Left;
                 while(rowObject != firstInRow)
                 {
-                    //Console.WriteLine(rowObject.ID);
-                    uncover(rowObject.Col);
+                
+                    uncover(rowObject.ColNode);
                     rowObject = rowObject.Left;
                 }
 
-            
                 firstInRow = firstInRow.Down;
                 rowObject  = firstInRow.Right;               
 
             }
             uncover(columnObject);
-
-
-            
-           
         }
 
         private static Node chooseSmallestSizeColumn(Node root)
@@ -130,12 +127,14 @@ namespace ExactCoverSudoku
 
         private static void cover(Node columnObject)
         {
-            columnObject.Left.Right = columnObject.Right;
+            
             columnObject.Right.Left = columnObject.Left;
-
+            columnObject.Left.Right = columnObject.Right;
+             
             Node firstInRow = columnObject.Down;
-            Node rowObject  = firstInRow.Right;
 
+            Node rowObject  = firstInRow.Right;
+  
             while(firstInRow != columnObject)
             {
                 
@@ -154,7 +153,6 @@ namespace ExactCoverSudoku
 
         private static void uncover(Node columnObject)
         {
-            // Breyta nafninu á c og r eins og uppi í eitthvað viðeigandi.
             Node firstInRow = columnObject.Up;
             Node rowObject = firstInRow.Left;
 

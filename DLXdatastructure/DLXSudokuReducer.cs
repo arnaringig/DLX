@@ -43,16 +43,21 @@ namespace ExactCoverSudoku
 
         private void reduceSudokuGridToDLX() 
         {
-            for (int i = 0; i < this.grid.Length; i++) { insert(i); }
+            for (int i = 0; i < this.grid.Length; i++) 
+            { 
+                insert(i); 
+            }
 
             // Memoizing the last nodes to an array gives us constant time access 
             // to each node so that when connecting each last node to the corresponding
             // column object we won´t have to go through the root node each time and
             // iterate to the last node.
+            
+            
             foreach (var lastNode in lastNodeMemo)
             {
-                lastNode.Down = lastNode.Col;
-                lastNode.Col.Up = lastNode;
+                lastNode.Down = lastNode.ColNode;
+                lastNode.ColNode.Up = lastNode;
             }
         }
 
@@ -70,32 +75,34 @@ namespace ExactCoverSudoku
             }
             else
             {
-                insertSubroutine(cellIdx,value);
+                insertSubroutine(cellIdx,value-1);
             } 
         }
 
         // breyta nafninu á þessu falli.. ekki subroutine 
         private void insertSubroutine(int cellIdx,int value) 
         {
-            CellToDLI indices = new CellToDLI(cellIdx,value,this.grid.Length);
+            CellToDLI DLIdata = new CellToDLI(cellIdx,value,this.grid.Length);
             string nodeId = "D"+cellIdx.ToString();
+
+            
             
             // here we use Node´s column node constructor
             // these are the column nodes that each respective data node below points to.
-            Node celColumnNode = this.colObjContainer[indices.CelDLIdx];
-            Node rowColumnNode = this.colObjContainer[indices.RowDLIdx];
-            Node colColumnNode = this.colObjContainer[indices.ColDLIdx];
-            Node boxColumnNode = this.colObjContainer[indices.BoxDLIdx];
+            Node celColumnNode = this.colObjContainer[DLIdata.CelDLIdx];
+            Node rowColumnNode = this.colObjContainer[DLIdata.RowDLIdx];
+            Node colColumnNode = this.colObjContainer[DLIdata.ColDLIdx];
+            Node boxColumnNode = this.colObjContainer[DLIdata.BoxDLIdx];
 
             // here we use Node´s data node constructor.
-            Node celDataNode = new Node(nodeId,"dataNode","cell",celColumnNode);
-            Node rowDataNode = new Node(nodeId,"dataNode","row" ,rowColumnNode);
-            Node colDataNode = new Node(nodeId,"dataNode","col" ,colColumnNode);
-            Node boxDataNode = new Node(nodeId,"dataNode","box" ,boxColumnNode);
+            Node celDataNode = new Node(nodeId,"dataNode","cell",celColumnNode,DLIdata.RowData);
+            Node rowDataNode = new Node(nodeId,"dataNode","row" ,rowColumnNode,DLIdata.RowData);
+            Node colDataNode = new Node(nodeId,"dataNode","col" ,colColumnNode,DLIdata.RowData);
+            Node boxDataNode = new Node(nodeId,"dataNode","box" ,boxColumnNode,DLIdata.RowData);
 
             insertRow(
                 cellIdx,
-                indices,
+                DLIdata,
                 celDataNode,
                 rowDataNode,
                 colDataNode,
@@ -116,13 +123,14 @@ namespace ExactCoverSudoku
         //  <-cel-row-col-box->
         private void connectRowNodes(Node a, Node b, Node c, Node d)
         {
-            a.Left   = b;
-            b.Right  = a;
-            b.Left   = c;
-            c.Right  = b;
-            c.Left   = d;
-            d.Right  = c;
-            d.Left   = a;            
+            a.Right  = b;
+            a.Left   = d;
+            b.Right  = c;
+            b.Left   = a;
+            c.Right  = d;
+            c.Left   = b;
+            d.Right  = a;
+            d.Left   = c;            
         }
 
         // insertNode enters a column node at an index and then 
@@ -141,7 +149,7 @@ namespace ExactCoverSudoku
 
             // As a node is inserted, the size property of the corresponding column 
             // object is increased.
-            insertNode.Col.increaseSize();
+            insertNode.ColNode.increaseSize();
 
             // Memoize last nodes.
             lastNodeMemo[columnIndex] = insertNode;         
