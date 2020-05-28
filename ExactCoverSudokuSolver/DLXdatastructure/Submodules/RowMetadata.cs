@@ -7,20 +7,20 @@ namespace ExactCoverSudoku
 {
     public class RowMetadata
     {
-        private int val;
-        private int row;
-        private int col;
+        private int _val;
+        private int _row;
+        private int _col;
 
         public RowMetadata(int[] rowData)
         {
-            this.val = rowData[0];
-            this.row = rowData[1];
-            this.col = rowData[2];
+            this._val = rowData[0];
+            this._row = rowData[1];
+            this._col = rowData[2];
         }
 
-        public int Val  { get { return val; } }
-        public int Row  { get { return row; } }
-        public int Col  { get { return col; } }
+        public int Val  { get { return _val; } }
+        public int Row  { get { return _row; } }
+        public int Col  { get { return _col; } }
     }
 }
     

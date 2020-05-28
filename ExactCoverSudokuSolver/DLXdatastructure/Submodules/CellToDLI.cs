@@ -9,12 +9,12 @@ namespace ExactCoverSudoku
     public class CellToDLI
     { 
         // value, row, column
-        private int[] rowData = new int[3];
+        private int[] _rowData = new int[3];
 
-        private int celDLIdx;                                                               
-        private int rowDLIdx;                                                               
-        private int colDLIdx;                                                               
-        private int boxDLIdx;                                                               
+        private int _celDLIdx;                                                               
+        private int _rowDLIdx;                                                               
+        private int _colDLIdx;                                                               
+        private int _boxDLIdx;                                                               
         
         // The constructor.
         public CellToDLI(int cellIdx, int value, int length)                                       
@@ -38,17 +38,17 @@ namespace ExactCoverSudoku
             int col = getCol(cellIdx,k);                                                    
             int box = getBox(row,col,q);                                                    
 
-            this.rowData[0] = val;
-            this.rowData[1] = row;
-            this.rowData[2] = col;
+            this._rowData[0] = val;
+            this._rowData[1] = row;
+            this._rowData[2] = col;
 
             // The length of the grid array (since we want to be able to use an arbitrarily sized problem, i.e 16 by 16).
             int len = length;                                                      
      
-            this.celDLIdx = insertIdx(celRegion,0,len,cellIdx);                             
-            this.rowDLIdx = insertIdx(rowRegion,row,len,val);                              
-            this.colDLIdx = insertIdx(colRegion,col,len,val);                          
-            this.boxDLIdx = insertIdx(boxRegion,box,len,val);                               
+            this._celDLIdx = insertIdx(celRegion,0,len,cellIdx);                             
+            this._rowDLIdx = insertIdx(rowRegion,row,len,val);                              
+            this._colDLIdx = insertIdx(colRegion,col,len,val);                          
+            this._boxDLIdx = insertIdx(boxRegion,box,len,val);                               
         }
 
         // Takes a cell index and k from the input problem and returns the sudoku grid row. k is the squre root of the problem length.
@@ -62,10 +62,10 @@ namespace ExactCoverSudoku
         Func<int,int,int,int,int> insertIdx = (r,p,l,v) => r*l + (int)Math.Sqrt(l)*p + v; 
                                                                                           
         // Accessor methods
-        public int[] RowData   { get { return rowData ; } }                                     
-        public int   CelDLIdx  { get { return celDLIdx; } }                                     
-        public int   RowDLIdx  { get { return rowDLIdx; } }                                     
-        public int   ColDLIdx  { get { return colDLIdx; } }                                     
-        public int   BoxDLIdx  { get { return boxDLIdx; } }                                     
+        public int[] RowData   { get { return _rowData ; } }                                     
+        public int   CelDLIdx  { get { return _celDLIdx; } }                                     
+        public int   RowDLIdx  { get { return _rowDLIdx; } }                                     
+        public int   ColDLIdx  { get { return _colDLIdx; } }                                     
+        public int   BoxDLIdx  { get { return _boxDLIdx; } }                                     
     }
 }

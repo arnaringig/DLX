@@ -28,12 +28,12 @@ namespace ExactCoverSudoku
 {
     public class SimpleDLX
     {
-        private Node root = new Node("root","Root");
+        private Node _root = new Node("root","Root");
 
 
         public SimpleDLX()
         {
-            createDLX(root);
+            createDLX(_root);
             
         }
 
@@ -169,7 +169,7 @@ namespace ExactCoverSudoku
 
         public Node Root
         {
-            get { return root; }
+            get { return _root; }
         }
 
         
